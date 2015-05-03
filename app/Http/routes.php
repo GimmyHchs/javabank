@@ -13,6 +13,7 @@
 
 Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
+Route::get('bighead','HomeController@big');
 //Route::get('account','AccountController@index');
 
 $router->resource('bank','BankController');
