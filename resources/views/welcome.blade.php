@@ -40,7 +40,7 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title">我的英文名字很多個</div>
+				<div class="title">JavaBank In Laravel</div>
 				<div class="quote">{{ Inspiring::quote() }}</div>
 			</div>
 		</div>
