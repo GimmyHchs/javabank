@@ -23,12 +23,17 @@
 	    	    						</div>
 	                       				<div class="form-group">
 	    	    							{!!Form::submit('Edit',['class'=>'btn btn-primary'])!!}
-	    	    							@if(!$check)
-	    	    									<a  method="PATCH" href="http://www.google.com" class="btn btn-info">Open Account</a>
-	    	    							@endif
+	    	    							
 	    	    						</div>
     	    					</div>
 						{!!Form::close()!!}
+						@if(!$check)
+	    	    			{!!Form::open(['method'=>'POST','url' => '/bank/'.$bank->code ])!!}
+	    	    			{!!Form::submit('Open Account',['class'=>'btn btn-info'])!!}
+	    	    			{!!Form::close()!!}
+	    	    		@else
+							{!!Form::button('Already Register Account',['class'=>'btn btn-danger'])!!}
+	    	    		@endif
 					</div>
 
 

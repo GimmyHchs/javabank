@@ -9,6 +9,7 @@ use App\Bank;
 use App\AccountBank;
 use App\User;
 
+
 class BankController extends Controller {
 
 	/**
@@ -54,9 +55,15 @@ class BankController extends Controller {
 	{
 		//
 	}
-    public function openaccount(){
-
-    	//
+    public function openaccount($code,AccountBank $accountbank){
+        $accountbank = new AccountBank;
+        $email = Auth::user()->email;
+        $accountbank->userid = $email;
+        $accountbank->bankcode =$code;
+        //$accountbank->store(['userid' => $email,'bankcode' => $code]);
+        $accountbank->save();
+    	//Session::flash('message', 'alert-danger');
+    	return redirect('/bank/'.$code)->with('alert-success', 'You are now logged in.');
     }
 	/**
 	 * Display the specified resource.
@@ -67,7 +74,7 @@ class BankController extends Controller {
 	public function show($code,Bank $bank,AccountBank $accountbank)
 	{
 		$email = Auth::user()->email;
-		$match =['userid'=>'$email','bankcode'=>'$code'];
+		//$match =['userid'=>'$email','bankcode'=>'$code'];
 
 		$accountbank=$this->accountbank->get()->where('userid',$email)->where('bankcode',$code)->first();
 		if($accountbank==null)

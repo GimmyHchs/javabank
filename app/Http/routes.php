@@ -15,7 +15,7 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 
 //Route::get('account','AccountController@index');
-
+Route::post('/bank/{bank}','BankController@openaccount');
 $router->resource('bank','BankController');
 
 
@@ -23,6 +23,6 @@ Route::controllers([
 
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
-	
+
 ]);
 
