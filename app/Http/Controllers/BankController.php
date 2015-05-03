@@ -54,7 +54,10 @@ class BankController extends Controller {
 	{
 		//
 	}
+    public function openaccount(){
 
+    	//
+    }
 	/**
 	 * Display the specified resource.
 	 *
