@@ -95,6 +95,7 @@ class AccountController extends Controller {
 		
 		//$accountbank->save();
 		if($radiooption=='option_in'){
+			if($request->get('input_price')!=0){
 			$finalbalance=($accountbank->balance)+($request->get('input_price'));
 			$bill = new Bill;
 			$bill->user_id=$email;
@@ -103,6 +104,7 @@ class AccountController extends Controller {
 			$bill->bank_code=$bank->name;
 			$bill->save();
 			$accountbank->balance=$finalbalance;
+		   }
 		}
 		else{
 			$finalbalance=($accountbank->balance)-($request->get('input_price'));
@@ -110,6 +112,7 @@ class AccountController extends Controller {
 				dd('You are so poor man....');
 			else
 			{
+				if($request->get('input_price')!=0){
 				$accountbank->balance=$finalbalance;
 				$bill = new Bill;
 				$bill->user_id=$email;
@@ -117,6 +120,7 @@ class AccountController extends Controller {
 				$bill->price=$request->get('input_price');
 				$bill->bank_code=$bank->name;
 				$bill->save();
+				}
 			}
 		}
 		$accountbank->save();
