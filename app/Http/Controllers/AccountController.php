@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\AccountBank;
 use App\Bank;
+use App\Bill;
 
 
 class AccountController extends Controller {
@@ -16,11 +17,12 @@ class AccountController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function __construct(Bank $bank,AccountBank $accountbank){
+	public function __construct(Bank $bank,AccountBank $accountbank,Bill $bill){
 
        $this->middleware('auth');
        $this->accountbank=$accountbank;
        $this->bank=$bank;
+       $this->bill=$bill;
 	}
 
 
@@ -83,16 +85,23 @@ class AccountController extends Controller {
 	 * @return Response
 	 */
 	
-	public function update($bankcode,AccountBank $accountbank,Request $request)
+	public function update($bankcode,Bank $bank,AccountBank $accountbank,Bill $bill,Request $request)
 	{
 		$email = Auth::user()->email;
 		$accountbank=$this->accountbank->get()->where('userid',$email)->where('bankcode',$bankcode)->first();
+		$bank = $this->bank->get()->where('code',$bankcode)->first();
 		
 		$radiooption=$request->get('radio_trasfer');
 		
 		//$accountbank->save();
 		if($radiooption=='option_in'){
 			$finalbalance=($accountbank->balance)+($request->get('input_price'));
+			$bill = new Bill;
+			$bill->user_id=$email;
+			$bill->type='Trasfer In';
+			$bill->price=$request->get('input_price');
+			$bill->bank_code=$bank->name;
+			$bill->save();
 			$accountbank->balance=$finalbalance;
 		}
 		else{
@@ -100,7 +109,15 @@ class AccountController extends Controller {
 			if($finalbalance<0)
 				dd('You are so poor man....');
 			else
+			{
 				$accountbank->balance=$finalbalance;
+				$bill = new Bill;
+				$bill->user_id=$email;
+				$bill->type='Trasfer Out';
+				$bill->price=$request->get('input_price');
+				$bill->bank_code=$bank->name;
+				$bill->save();
+			}
 		}
 		$accountbank->save();
 		return redirect('/account/'.$bankcode);

@@ -18,6 +18,7 @@ Route::get('home', 'HomeController@index');
 Route::post('/bank/{bank}','BankController@openaccount');
 $router->resource('bank','BankController');
 $router->resource('account','AccountController');
+$router->resource('bill','BillController');
 
 Route::controllers([
 

@@ -35,6 +35,9 @@
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/home') }}">Home</a></li>
 					<li><a href="{{url('/bank')}}">Bank</a></li>
+					@if(!Auth::guest())
+					 <li><a href="{{url('/bill/').'/'.Auth::user()->email}}">Bill</a></li>
+					@endif
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
