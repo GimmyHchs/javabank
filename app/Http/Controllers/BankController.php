@@ -14,7 +14,8 @@ class BankController extends Controller {
 	 * @return Response
 	 */
 	public function __construct(Bank $bank){
-      
+		
+       $this->middleware('auth');
        $this->bank=$bank;
 	}
 
