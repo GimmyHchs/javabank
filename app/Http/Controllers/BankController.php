@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Bank;
 
 class BankController extends Controller {
 
@@ -12,9 +13,16 @@ class BankController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function __construct(Bank $bank){
+      
+       $this->bank=$bank;
+	}
+
+	public function index(Bank $bank)
 	{
-		//
+		//$targetbank = $this->bank->get()->where('name','台灣銀行')->first();
+        $banks = $this->bank->get();
+		return view('bank.index',compact('banks'));
 	}
 
 	/**
