@@ -3,8 +3,11 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Bank;
+use App\AccountBank;
+use App\User;
 
 class BankController extends Controller {
 
@@ -13,17 +16,23 @@ class BankController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function __construct(Bank $bank){
-		
+	public function __construct(Bank $bank,AccountBank $accountbank){
+
        $this->middleware('auth');
+       $this->accountbank=$accountbank;
        $this->bank=$bank;
 	}
 
-	public function index(Bank $bank)
+	public function index()
 	{
 		//$targetbank = $this->bank->get()->where('name','台灣銀行')->first();
+		//$user=$this->user->get()->first();
+		$email = Auth::user()->email;
+		//$userid=$user->get('name');
+		//dd($email);
+		
         $banks = $this->bank->get();
-		return view('bank.index',compact('banks'));
+		return view('bank.index',compact('banks','targetaccountbank'));
 	}
 
 	/**
@@ -52,12 +61,19 @@ class BankController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($code,Bank $bank)
+	public function show($code,Bank $bank,AccountBank $accountbank)
 	{
+		$email = Auth::user()->email;
+		$match =['userid'=>'$email','bankcode'=>'$code'];
+
+		$accountbank=$this->accountbank->get()->where('userid',$email)->where('bankcode',$code)->first();
+		if($accountbank==null)
+			$check = false;
+		else
+			$check = true;
 		
-		//dd($code);
 		$bank = $this->bank->get()->where('code',$code)->first();
-		return view('bank.show',compact('bank'));
+		return view('bank.show',compact('bank','check'));
 	}
 
 	/**
