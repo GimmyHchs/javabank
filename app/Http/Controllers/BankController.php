@@ -51,9 +51,12 @@ class BankController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($code,Bank $bank)
 	{
-		//
+		
+		//dd($code);
+		$bank = $this->bank->get()->where('code',$code)->first();
+		return view('bank.show',compact('bank'));
 	}
 
 	/**
