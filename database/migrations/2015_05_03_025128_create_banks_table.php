@@ -18,6 +18,7 @@ class CreateBanksTable extends Migration {
 			$table->string('name');
 			$table->string('address');
 			$table->string('code');
+			$table->text('introduction')->nullable();
 			$table->string('tel')->nullable();
 			$table->timestamps();
 		});
