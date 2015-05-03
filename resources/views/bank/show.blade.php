@@ -33,6 +33,7 @@
 	    	    			{!!Form::close()!!}
 	    	    		@else
 							{!!Form::button('Already Register Account',['class'=>'btn btn-danger'])!!}
+							<a href="/account/{{$bank->code}}" class="btn btn-info">Manage Account</a>
 	    	    		@endif
 					</div>
 

@@ -60,6 +60,7 @@ class BankController extends Controller {
         $email = Auth::user()->email;
         $accountbank->userid = $email;
         $accountbank->bankcode =$code;
+        $accountbank->balance = 5000 ;
         //$accountbank->store(['userid' => $email,'bankcode' => $code]);
         $accountbank->save();
     	//Session::flash('message', 'alert-danger');
