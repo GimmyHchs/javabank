@@ -20,7 +20,9 @@ $router->resource('bank','BankController');
 
 
 Route::controllers([
+
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
+	
 ]);
 

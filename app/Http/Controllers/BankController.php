@@ -65,9 +65,11 @@ class BankController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($code,Bank $bank)
 	{
-		//
+		$bank=$this->bank->get()->where('code',$code)->first();
+		//dd($bank);
+		return view('bank.edit',compact('bank'));
 	}
 
 	/**
@@ -76,9 +78,16 @@ class BankController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($code,Bank $bank,Request $request)
 	{
-		//
+		
+		$bank=$this->bank->get()->where('code',$code)->first();
+		$bank->name = $request->get('input_name');
+		$bank->address = $request->get('input_address');
+		$bank->tel = $request->get('input_tel');
+		$bank->introduction = $request->get('input_introduction');
+		$bank->save();
+		return redirect('/bank/'.$code);
 	}
 
 	/**

@@ -10,8 +10,17 @@
     	    			{!!Form::open(['method'=>'GET','url'=>'/bank/'.$bank->code.'/edit'])!!}
     	    			         <div class="content">
 	    	    						<div class="form-gruop">
+	    	    						    <h2>Introduction</h2>
 	                         	  			<p class="text-muted">{!!nl2br($bank->introduction)!!}</p>
 	                       				</div>
+	                       				<div class="form-group">
+	    	    							<h2>Address</h2>
+	                         	  			<p class="text-muted">{!!nl2br($bank->address)!!}</p>
+	    	    						</div>
+	    	    						<div class="form-group">
+	    	    							<h2>Tel</h2>
+	                         	  			<p class="text-muted">{!!nl2br($bank->tel)!!}</p>
+	    	    						</div>
 	                       				<div class="form-group">
 	    	    							{!!Form::submit('Edit',['class'=>'btn btn-primary'])!!}
 	    	    						</div>
