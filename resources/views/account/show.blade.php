@@ -11,6 +11,10 @@
 		    	    	 {!!Form::text('input_price','0',['class'=>'form-control'])!!}
 					</div>
 					<div class="form-group">
+				         {!!Form::label('TargetAccount')!!}
+		    	    	 {!!Form::text('input_targetaccount','',['class'=>'form-control'])!!}
+					</div>
+					<div class="form-group">
 					{!!Form::radio('radio_trasfer','option_in',true,null)!!}  TrasferIn 
 					</div>
 					<div class="form-group">
