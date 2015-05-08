@@ -130,6 +130,7 @@ class AccountController extends Controller {
 				$bill->save();
 				//above targetaccount's bankaccount
 				$targetaccountbank=$this->accountbank->get()->where('userid',$request->get('input_price'))->where('bankcode',$bankcode)->first();
+				dd($targetaccountbank->balance);
 				$targetaccountbank->balance=$targetaccountbank->balance+$request->get('input_price');
 				$targetaccountbank->save();
 				}
