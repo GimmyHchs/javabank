@@ -90,7 +90,7 @@ class AccountController extends Controller {
 		$email = Auth::user()->email;
 		$accountbank=$this->accountbank->get()->where('userid',$email)->where('bankcode',$bankcode)->first();
 		$bank = $this->bank->get()->where('code',$bankcode)->first();
-		dd($request->get('input_targetaccount'));
+		//dd($request->get('input_targetaccount'));
 		
 		$radiooption=$request->get('radio_trasfer');
 		
@@ -118,6 +118,13 @@ class AccountController extends Controller {
 				$bill = new Bill;
 				$bill->user_id=$email;
 				$bill->type='Trasfer Out';
+				$bill->price=$request->get('input_price');
+				$bill->bank_code=$bank->name;
+				$bill->save();
+				//above target account bill
+				$bill = new Bill;
+				$bill->user_id=$request->get('input_targetaccount');
+				$bill->type='Trasfer In  From'.$email;
 				$bill->price=$request->get('input_price');
 				$bill->bank_code=$bank->name;
 				$bill->save();
