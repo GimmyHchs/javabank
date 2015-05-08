@@ -12,7 +12,7 @@
 					</div>
 					<div class="form-group">
 				         {!!Form::label('TargetAccount')!!}
-		    	    	 {!!Form::text('input_targetaccount','',['class'=>'form-control'])!!}
+		    	    	 {!!Form::select('input_targetaccount',['g9308370@hotmail.com'=>'g9308370@hotmail.com'],0,['class'=>'form-control'])!!}
 					</div>
 					<div class="form-group">
 					{!!Form::radio('radio_trasfer','option_in',true,null)!!}  TrasferIn 
