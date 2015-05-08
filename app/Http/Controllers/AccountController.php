@@ -90,6 +90,7 @@ class AccountController extends Controller {
 		$email = Auth::user()->email;
 		$accountbank=$this->accountbank->get()->where('userid',$email)->where('bankcode',$bankcode)->first();
 		$bank = $this->bank->get()->where('code',$bankcode)->first();
+		dd($request->get('input_targetaccount'));
 		
 		$radiooption=$request->get('radio_trasfer');
 		
