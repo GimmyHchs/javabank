@@ -95,19 +95,27 @@ class AccountController extends Controller {
 		$radiooption=$request->get('radio_trasfer');
 		
 		//$accountbank->save();
+
+		//匯入匯出分支
 		if($radiooption=='option_in'){
 			if($request->get('input_price')!=0){
 			$finalbalance=($accountbank->balance)+($request->get('input_price'));
+			$accountbank->balance=$finalbalance;
+			$accountbank->save();
+
+			//above new bill Record
 			$bill = new Bill;
 			$bill->user_id=$email;
 			$bill->type='Trasfer In';
 			$bill->price=$request->get('input_price');
 			$bill->bank_code=$bank->name;
 			$bill->save();
-			$accountbank->balance=$finalbalance;
+
 		   }
 		}
 		else{
+
+			//匯出餘額檢查
 			$finalbalance=($accountbank->balance)-($request->get('input_price'));
 			if($finalbalance<0)
 				dd('You are so poor man....');
@@ -115,19 +123,25 @@ class AccountController extends Controller {
 			{
 				if($request->get('input_price')!=0){
 				$accountbank->balance=$finalbalance;
+				$accountbank->save();
+
+				//above new bill Record
 				$bill = new Bill;
 				$bill->user_id=$email;
 				$bill->type='Trasfer Out';
 				$bill->price=$request->get('input_price');
 				$bill->bank_code=$bank->name;
 				$bill->save();
-				//above target account bill
+
+				//above target account new bill
 				$bill = new Bill;
 				$bill->user_id=$request->get('input_targetaccount');
-				$bill->type='Trasfer In  From'.$email;
+				$bill->type='Trasfer In  From '.$email;
 				$bill->price=$request->get('input_price');
 				$bill->bank_code=$bank->name;
 				$bill->save();
+
+				
 				//above targetaccount's bankaccount
 				$targetaccountbank=$this->accountbank->get()->where('userid',$request->get('input_targetaccount'))->where('bankcode',$bankcode)->first();
 				//dd($targetaccountbank->balance);
@@ -136,7 +150,7 @@ class AccountController extends Controller {
 				}
 			}
 		}
-		$accountbank->save();
+		
 		return redirect('/account/'.$bankcode);
 	}
 
