@@ -18,7 +18,7 @@
 					{!!Form::radio('radio_trasfer','option_in',true,null)!!}  TrasferIn 
 					</div>
 					<div class="form-group">
-					{!!Form::radio('radio_trasfer','option_out',false,null)!!}  TrasferOut 
+					{!!Form::radio('radio_trasfer','option_out',false,null)!!}  TrasferOut!
 					</div>
 					<div class="form-group">
 					{!!Form::submit('Submit',['class'=>'btn btn-primary'])!!}
