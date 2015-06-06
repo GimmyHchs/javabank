@@ -22,6 +22,7 @@ class BankController extends Controller {
        //$this->middleware('auth');
        $this->accountbank=$accountbank;
        $this->bank=$bank;
+        $this->bank=$bank;
 	}
 
 	public function index()
