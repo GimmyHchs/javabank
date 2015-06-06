@@ -21,6 +21,7 @@ class BankController extends Controller {
 
        $this->middleware('auth');
        $this->accountbank=$accountbank;
+        $this->accountbank=$accountbank;
        $this->bank=$bank;
 	}
 
